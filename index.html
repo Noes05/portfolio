@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noé Silva - Support Bureautique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Animation de fond */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ffff;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            margin-bottom: 1rem;
+            animation: glowText 2s ease-in-out infinite;
+        }
+
+        @keyframes glowText {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4); }
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            color: #a0a0ff;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #808080;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(0, 128, 255, 0.2));
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid #00ffff;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #0a0e27;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+        }
+
+        /* About & Company */
+        .content-box {
+            background: rgba(26, 31, 58, 0.5);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .content-box h3 {
+            color: #00ffff;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .content-box p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            margin-bottom: 1rem;
+        }
+
+        .mairie-hero {
+            margin-bottom: 3rem;
+        }
+
+        .mairie-banner {
+            background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 15px 50px rgba(0, 255, 255, 0.2);
+            position: relative;
+            min-height: 300px;
+        }
+
+        .banner-overlay {
+            padding: 3rem;
+            text-align: center;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 128, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .banner-icon {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.6));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .banner-overlay h3 {
+            color: #00ffff;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .banner-overlay > p {
+            color: #a0a0ff;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .banner-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .banner-features span {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #c0c0c0;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .banner-features span:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #00ffff;
+            transform: translateY(-3px);
+        }
+
+        .mairie-visual {
+            margin-bottom: 2rem;
+        }
+
+        .mairie-placeholder {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 128, 255, 0.1));
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .building-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+        }
+
+        .building-text {
+            font-size: 1.8rem;
+            color: #00ffff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .building-subtext {
+            color: #a0a0a0;
+            font-size: 1rem;
+        }
+
+        .mairie-image {
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mairie-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .mairie-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .company-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: rgba(0, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .info-card h4 {
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .info-card p {
+            color: #a0a0a0;
+            font-size: 1rem;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(26, 31, 58, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h3 {
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-card p {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(26, 31, 58, 0.5);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ffff;
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.3);
+        }
+
+        .service-card h3 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card ul {
+            list-style: none;
+            color: #c0c0c0;
+        }
+
+        .service-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #00ffff;
+            font-size: 1.2rem;
+        }
+
+        /* Contact */
+        .contact-content {
+            text-align: center;
+            background: rgba(26, 31, 58, 0.5);
+            padding: 4rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item a {
+            color: #00ffff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .contact-item a:hover {
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .synthese-download {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .file-icon {
+            font-size: 2.5rem;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .file-name {
+            color: #00ffff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .file-desc {
+            color: #808080;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 14, 39, 0.95);
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            color: #808080;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+
+    <nav>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#apropos">À Propos</a></li>
+            <li><a href="#entreprise">Entreprise</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#synthese">Synthèse E5</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="accueil" class="hero">
+        <div class="badge">🔧 Alternant en Informatique</div>
+        <h1>NOÉ SILVA</h1>
+        <h2>Support Bureautique</h2>
+        <p>Direction des Systèmes d'Information • Mairie de Meaux</p>
+        <a href="#contact" class="cta-button">Me Contacter</a>
+    </section>
+
+    <section id="apropos">
+        <h2>À Propos</h2>
+        <div class="content-box">
+            <h3>Mon Parcours</h3>
+            <p>
+                Alternant au sein de la Direction des Systèmes d'Information (DSI) de la Mairie de Meaux, 
+                je suis spécialisé dans le support bureautique et l'assistance aux utilisateurs. 
+                Passionné par les technologies de l'information, j'accompagne quotidiennement les agents 
+                municipaux dans l'utilisation des outils numériques.
+            </p>
+            <p>
+                Mon rôle consiste à garantir le bon fonctionnement des équipements informatiques, 
+                résoudre les incidents techniques et former les utilisateurs aux nouvelles technologies. 
+                Je développe constamment mes compétences pour offrir un service de qualité.
+            </p>
+        </div>
+    </section>
+
+    <section id="entreprise">
+        <h2>Mon Entreprise</h2>
+        
+        <div class="mairie-image">
+            <img src="data:image/jpeg;base64,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
+
+        <div class="company-info">
+            <div class="info-card">
+                <h4>📍 Localisation</h4>
+                <p>Meaux, Seine-et-Marne (77)</p>
+            </div>
+            <div class="info-card">
+                <h4>💼 Secteur</h4>
+                <p>Service Public / Collectivité</p>
+            </div>
+            <div class="info-card">
+                <h4>🖥️ Mon Service</h4>
+                <p>DSI - Support Bureautique</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="competences">
+        <h2>Compétences</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">💻</div>
+                <h3>Support Technique</h3>
+                <p>Assistance utilisateurs, résolution d'incidents</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🔧</div>
+                <h3>Maintenance</h3>
+                <p>Matériel informatique, périphériques</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🖥️</div>
+                <h3>Systèmes</h3>
+                <p>Windows, Active Directory</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">📦</div>
+                <h3>Logiciels</h3>
+                <p>Suite Office, outils bureautiques</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🌐</div>
+                <h3>Réseaux</h3>
+                <p>Configuration, dépannage réseau</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2>Services & Missions</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>🎯 Support Utilisateurs</h3>
+                <ul>
+                    <li>Assistance technique quotidienne</li>
+                    <li>Gestion des demandes d'intervention</li>
+                    <li>Résolution des incidents bureautiques</li>
+                    <li>Support à distance et sur site</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <h3>🔧 Maintenance & Installation</h3>
+                <ul>
+                    <li>Installation de postes de travail</li>
+                    <li>Configuration matérielle</li>
+                    <li>Maintenance préventive et curative</li>
+                    <li>Gestion du parc informatique</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <h3>📖 Documentation</h3>
+                <ul>
+                    <li>Création de guides utilisateurs</li>
+                    <li>Accompagnement au changement</li>
+                    <li>Veille technologique</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="synthese">
+        <h2>Tableau de Synthèse E5</h2>
+        <div class="content-box">
+            <h3>📊 Épreuve E5 - BTS SIO 2026</h3>
+            <p>
+                Retrouvez ci-dessous le tableau de synthèse recensant l'ensemble des activités 
+                réalisées en entreprise, mises en correspondance avec les compétences attendues 
+                pour l'épreuve E5 du BTS SIO.
+            </p>
+            <div class="synthese-download">
+                <span class="file-icon">📄</span>
+                <div class="file-info">
+                    <p class="file-name">Tableau de synthèse E5.xlsx</p>
+                    <p class="file-desc">Cliquez pour ouvrir le fichier</p>
+                </div>
+                <a href="synthese-e5.xlsx" download class="cta-button" style="padding: 0.7rem 1.5rem; font-size: 0.9rem;">Télécharger</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-content">
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #c0c0c0;">
+                Intéressé par mon profil ? N'hésitez pas à me contacter !
+            </p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <a href="mailto:noe.silva@outlook.fr">noe.silva@outlook.fr</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Noé Silva - Support Bureautique • Mairie de Meaux</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
